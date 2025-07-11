@@ -1,0 +1,83 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+body {
+  background-color: #121212;
+  color: white;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+}
+.logo {
+  font-size: 24px;
+  font-style: italic;
+}
+.logo .highlight {
+  color: #7fffab;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-style: italic;
+}
+nav ul li a.active,
+nav ul li a:hover {
+  border-bottom: 2px solid #7fffab;
+}
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  gap: 40px;
+}
+.profile-pic img {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 4px solid #7fffab;
+  box-shadow: 0 0 30px #7fffab;
+}
+.intro h1 {
+  font-size: 40px;
+  font-weight: bold;
+}
+.intro h1 span {
+  color: #7fffab;
+  font-style: italic;
+}
+.intro p {
+  margin-top: 20px;
+  font-style: italic;
+  font-weight: 500;
+  max-width: 500px;
+}
+.buttons {
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+}
+.buttons a {
+  padding: 10px 20px;
+  border: 2px solid #7fffab;
+  border-radius: 20px;
+  color: #7fffab;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.buttons a:hover {
+  background-color: #7fffab;
+  color: #121212;
+}
