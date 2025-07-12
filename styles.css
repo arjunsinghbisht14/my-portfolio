@@ -261,3 +261,6 @@ nav ul li a:hover {
     justify-content: center;
   }
 }
+.social-links a:hover {
+  color: #your-color; /* Change hover color */
+}
