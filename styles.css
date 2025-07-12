@@ -81,3 +81,183 @@ nav ul li a:hover {
   background-color: #7fffab;
   color: #121212;
 }
+/* Existing CSS remains the same */
+
+/* Add these new styles at the bottom */
+
+/* Resume Page Styles */
+.resume-container {
+  padding: 50px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.resume-container h1 {
+  font-size: 36px;
+  margin-bottom: 30px;
+  color: #7fffab;
+}
+
+.experience {
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #333;
+}
+
+.experience h2 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.experience h3 {
+  font-size: 18px;
+  color: #7fffab;
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+.experience ul {
+  margin-left: 20px;
+}
+
+.experience li {
+  margin-bottom: 10px;
+}
+
+/* Projects Page Styles */
+.projects-container {
+  padding: 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.projects-container h1 {
+  font-size: 36px;
+  margin-bottom: 30px;
+  color: #7fffab;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.project-card {
+  background: #1e1e1e;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+}
+
+.project-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.project-card h2 {
+  padding: 15px;
+  font-size: 20px;
+}
+
+.project-card p {
+  padding: 0 15px 15px;
+  color: #ccc;
+}
+
+.project-link {
+  display: inline-block;
+  margin: 0 15px 15px;
+  padding: 8px 20px;
+  background: #7fffab;
+  color: #121212;
+  text-decoration: none;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+/* About Page Styles */
+.about-container {
+  padding: 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-content {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+}
+
+.about-text {
+  flex: 2;
+}
+
+.about-text h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #7fffab;
+}
+
+.about-text p {
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.skills-list {
+  margin-left: 20px;
+}
+
+.skills-list li {
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 25px;
+}
+
+.skills-list li::before {
+  content: "▹";
+  position: absolute;
+  left: 0;
+  color: #7fffab;
+}
+
+.about-image {
+  flex: 1;
+  text-align: center;
+}
+
+.about-image img {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 4px solid #7fffab;
+  box-shadow: 0 0 30px #7fffab;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .about-content {
+    flex-direction: column;
+  }
+  
+  .about-image {
+    order: -1;
+    margin-bottom: 30px;
+  }
+  
+  header {
+    padding: 20px;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  nav ul {
+    margin-top: 20px;
+    justify-content: center;
+  }
+}
