@@ -1,55 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About - Arjun Singh Bisht</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arjun Singh Bisht - Portfolio</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,400&display=swap">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        /* CSS will go here - shown in next response */
+    </style>
 </head>
 <body>
-  <header>
-    <div class="logo">Arjun Singh <span class="highlight">Bisht</span></div>
-    <nav>
-      <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="resume.html">Resume</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="about.html">About me</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main class="hero">
-      <div class="profile-pic">
-  <img src="images/profile.jpg" alt="Arjun Singh Bisht">
-    </div>
-    <div class="intro">
-      <h1>Hello I'm<br><span>Arjun Singh Bisht</span></h1>
-      <p>
-        A dedicated interpreter and AWS Cloud Practitioner, currently exploring the world of web development. This website is my personal space to share my journey, skills, and projects. I invite you to browse through and hope you find something that resonates with you!
-      </p>
-      <div class="buttons">
-        <a href="index.html">Home</a>
-        <a href="resume.html">Resume</a>
-        <a href="projects.html">Projects</a>
-        <a href="about.html">About me</a>
-      </div>
-    </div>
-     </main> 
-     </body 
-  <footer>
-    <div class="footer-content">
-      <h3>Get in Touch</h3>
-      <div class="social-links">
-        <a href="https://linkedin.com/in/arjunbisht" target="_blank" aria-label="LinkedIn">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="https://instagram.com/arjunbisht" target="_blank" aria-label="Instagram">
-          <i class="fab fa-instagram"></i>
-        </a>
-      </div>
-      <p class="copyright">© 2023 Arjun Singh Bisht. All rights reserved.</p>
-    </div>
-  </footer>
+    <header class="header">
+        <div class="logo">
+            <p>Arjun Singh <span>Bisht</span></p>
+        </div>
+        <nav class="navbar">
+            <p class="nav-item active" data-section="home">Home</p>
+            <p class="nav-item" data-section="resume">Resume</p>
+            <p class="nav-item" data-section="projects">Projects</p>
+            <p class="nav-item" data-section="about">About</p>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="content-section active-section">
+            <div class="home-section">
+                <div class="home-right">
+                    <img src="images/profile.jpg" class="myphoto" alt="Arjun Singh Bisht">
+                </div>
+                <div class="home-left">
+                    <h1>Hello I'm <br><span>Arjun Singh Bisht</span></h1>
+                    <p class="summary">
+                        A dedicated interpreter and AWS Solutions Architect, currently exploring web development. 
+                        This portfolio showcases my journey, skills, and projects.
+                    </p>
+                    <div class="buttons">
+                        <button class="btn" data-section="home">Home</button>
+                        <button class="btn" data-section="resume">Resume</button>
+                        <button class="btn" data-section="projects">Projects</button>
+                        <button class="btn" data-section="about">About</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resume Section -->
+        <section id="resume" class="content-section">
+            <div class="resume-section">
+                <h1 class="section-title">Resume</h1>
+                <div class="resume-content">
+                    <!-- Your resume content here -->
+                    <div class="resume-item">
+                        <h2>Work Experience</h2>
+                        <div class="job">
+                            <h3>Japanese Interpreter and AWS Solutions Architect</h3>
+                            <p class="job-date">2021 - Present</p>
+                            <p class="job-description">
+                                • Translated technical documents between Japanese and English<br>
+                                • Designed cloud infrastructure on AWS<br>
+                                • Managed cross-cultural team communications
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="content-section">
+            <div class="projects-section">
+                <h1 class="section-title">Projects</h1>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <img src="images/project1.jpg" alt="AWS Project">
+                        <h3>AWS Cloud Architecture</h3>
+                        <p>Designed scalable cloud infrastructure with multiple availability zones</p>
+                    </div>
+                    <!-- More project cards -->
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="content-section">
+            <div class="about-section">
+                <h1 class="section-title">About Me</h1>
+                <div class="about-content">
+                    <p>Hi, I'm Arjun Singh Bisht, originally from Delhi and now based in Japan.</p>
+                    <p>I hold JLPT N1 certification and AWS Solutions Architect certification.</p>
+                    <p>When not working, I enjoy cricket, anime, and continuous learning.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <h2>Get in Touch</h2>
+        <div class="social-links">
+            <a href="#" aria-label="LinkedIn"><i class='bx bxl-linkedin'></i></a>
+            <a href="#" aria-label="GitHub"><i class='bx bxl-github'></i></a>
+            <a href="#" aria-label="Email"><i class='bx bx-envelope'></i></a>
+        </div>
+        <p class="copyright">© <span id="year"></span> Arjun Singh Bisht</p>
+    </footer>
+
+    <script>
+        // JavaScript will go here - shown in next response
+    </script>
 </body>
 </html>
