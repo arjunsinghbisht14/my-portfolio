@@ -4,17 +4,377 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arjun Singh Bisht - Portfolio</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,400&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
-        /* CSS will go here - shown in next response */
+        :root {
+            --primary: #13F69B;
+            --dark: #1D1C21;
+            --light: #FBFBFC;
+            --gray: #666;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 70px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 5%;
+            background-color: rgba(29, 28, 33, 0.98);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light);
+            transition: var(--transition);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+
+        .navbar {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-item {
+            color: var(--light);
+            font-size: 1.1rem;
+            cursor: pointer;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-item:hover {
+            color: var(--primary);
+        }
+
+        .nav-item:hover::after,
+        .nav-item.active::after {
+            width: 100%;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            padding-top: 70px;
+        }
+
+        .content-section {
+            min-height: 100vh;
+            padding: 80px 10%;
+            display: none;
+        }
+
+        .content-section.active-section {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Home Section */
+        .home-section {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .home-left {
+            flex: 1;
+        }
+
+        .home-right {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .myphoto {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary);
+            box-shadow: 0 0 20px rgba(19, 246, 155, 0.3);
+            transition: var(--transition);
+        }
+
+        .myphoto:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 30px rgba(19, 246, 155, 0.5);
+        }
+
+        .home-section h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .home-section h1 span {
+            color: var(--primary);
+        }
+
+        .summary {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            color: rgba(251, 251, 252, 0.8);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background-color: var(--primary);
+            color: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(19, 246, 155, 0.2);
+        }
+
+        /* Resume Section */
+        .resume-content {
+            display: grid;
+            gap: 40px;
+        }
+
+        .resume-item h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+
+        .job {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .job h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .job-date {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            background-color: rgba(19, 246, 155, 0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        .job-description {
+            color: rgba(251, 251, 252, 0.7);
+            line-height: 1.8;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .project-card:hover img {
+            transform: scale(1.03);
+        }
+
+        .project-card h3 {
+            padding: 20px;
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+
+        .project-card p {
+            padding: 0 20px 20px;
+            color: rgba(251, 251, 252, 0.7);
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 800px;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: rgba(251, 251, 252, 0.8);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 50px 10% 30px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .footer h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .social-links a {
+            color: var(--light);
+            font-size: 1.8rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            color: rgba(251, 251, 252, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .home-section {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+            
+            .home-left {
+                align-items: center;
+            }
+            
+            .myphoto {
+                width: 280px;
+                height: 280px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            .navbar {
+                margin-top: 20px;
+                gap: 15px;
+            }
+            
+            .content-section {
+                padding: 80px 5%;
+            }
+            
+            .home-section h1 {
+                font-size: 2.2rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .buttons {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
     </style>
 </head>
 <body>
     <header class="header">
-        <div class="logo">
-            <p>Arjun Singh <span>Bisht</span></p>
-        </div>
+        <div class="logo">Arjun Singh <span>Bisht</span></div>
         <nav class="navbar">
             <p class="nav-item active" data-section="home">Home</p>
             <p class="nav-item" data-section="resume">Resume</p>
@@ -28,7 +388,7 @@
         <section id="home" class="content-section active-section">
             <div class="home-section">
                 <div class="home-right">
-                    <img src="images/profile.jpg" class="myphoto" alt="Arjun Singh Bisht">
+                    <img src="profile.jpg" class="myphoto" alt="Arjun Singh Bisht">
                 </div>
                 <div class="home-left">
                     <h1>Hello I'm <br><span>Arjun Singh Bisht</span></h1>
@@ -51,7 +411,6 @@
             <div class="resume-section">
                 <h1 class="section-title">Resume</h1>
                 <div class="resume-content">
-                    <!-- Your resume content here -->
                     <div class="resume-item">
                         <h2>Work Experience</h2>
                         <div class="job">
@@ -61,6 +420,27 @@
                                 • Translated technical documents between Japanese and English<br>
                                 • Designed cloud infrastructure on AWS<br>
                                 • Managed cross-cultural team communications
+                            </p>
+                        </div>
+                        <div class="job">
+                            <h3>Customer Service Representative</h3>
+                            <p class="job-date">2019 - 2021</p>
+                            <p class="job-description">
+                                • Resolved customer queries with 98% satisfaction rate<br>
+                                • Improved response times by 30%<br>
+                                • Developed new customer service protocols
+                            </p>
+                        </div>
+                    </div>
+                    <div class="resume-item">
+                        <h2>Education</h2>
+                        <div class="job">
+                            <h3>Bachelor of Commerce</h3>
+                            <p class="job-date">2019 - 2022</p>
+                            <p class="job-description">
+                                • Delhi University<br>
+                                • Specialization in Business Administration<br>
+                                • GPA: 7.1/10
                             </p>
                         </div>
                     </div>
@@ -74,11 +454,20 @@
                 <h1 class="section-title">Projects</h1>
                 <div class="projects-grid">
                     <div class="project-card">
-                        <img src="images/project1.jpg" alt="AWS Project">
+                        <img src="project1.jpg" alt="AWS Project">
                         <h3>AWS Cloud Architecture</h3>
-                        <p>Designed scalable cloud infrastructure with multiple availability zones</p>
+                        <p>Designed scalable cloud infrastructure with multiple availability zones and security protocols.</p>
                     </div>
-                    <!-- More project cards -->
+                    <div class="project-card">
+                        <img src="project2.jpg" alt="Translation System">
+                        <h3>Technical Translation System</h3>
+                        <p>Developed a workflow system for managing technical document translations.</p>
+                    </div>
+                    <div class="project-card">
+                        <img src="project3.jpg" alt="Portfolio Website">
+                        <h3>Portfolio Website</h3>
+                        <p>Built this responsive portfolio website using HTML, CSS and JavaScript.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -88,9 +477,9 @@
             <div class="about-section">
                 <h1 class="section-title">About Me</h1>
                 <div class="about-content">
-                    <p>Hi, I'm Arjun Singh Bisht, originally from Delhi and now based in Japan.</p>
-                    <p>I hold JLPT N1 certification and AWS Solutions Architect certification.</p>
-                    <p>When not working, I enjoy cricket, anime, and continuous learning.</p>
+                    <p>Hi, I'm Arjun Singh Bisht, originally from Delhi and now based in Japan. I combine language expertise with technical skills as a Japanese interpreter and AWS Solutions Architect.</p>
+                    <p>I hold JLPT N1 certification (highest level of Japanese proficiency) and AWS Solutions Architect certification. My journey in technology has led me to explore web development, resulting in projects like this portfolio.</p>
+                    <p>When I'm not working, I enjoy playing cricket, watching anime, and continuously learning new skills in technology and languages.</p>
                 </div>
             </div>
         </section>
@@ -102,12 +491,54 @@
             <a href="#" aria-label="LinkedIn"><i class='bx bxl-linkedin'></i></a>
             <a href="#" aria-label="GitHub"><i class='bx bxl-github'></i></a>
             <a href="#" aria-label="Email"><i class='bx bx-envelope'></i></a>
+            <a href="#" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
         </div>
-        <p class="copyright">© <span id="year"></span> Arjun Singh Bisht</p>
+        <p class="copyright">© <span id="year"></span> Arjun Singh Bisht. All rights reserved.</p>
     </footer>
 
     <script>
-        // JavaScript will go here - shown in next response
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set copyright year
+            document.getElementById('year').textContent = new Date().getFullYear();
+            
+            // Navigation functionality
+            const navItems = document.querySelectorAll('.nav-item');
+            const contentSections = document.querySelectorAll('.content-section');
+            const buttons = document.querySelectorAll('.btn');
+            
+            // Function to switch sections
+            function switchSection(sectionId) {
+                // Hide all sections
+                contentSections.forEach(section => {
+                    section.classList.remove('active-section');
+                });
+                
+                // Show selected section
+                document.getElementById(sectionId).classList.add('active-section');
+                
+                // Update active nav item
+                navItems.forEach(item => {
+                    item.classList.toggle('active', item.dataset.section === sectionId);
+                });
+            }
+            
+            // Nav item click event
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    switchSection(this.dataset.section);
+                });
+            });
+            
+            // Button click event
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    switchSection(this.dataset.section);
+                });
+            });
+            
+            // Initialize - show home section
+            switchSection('home');
+        });
     </script>
 </body>
 </html>
