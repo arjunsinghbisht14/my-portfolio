@@ -12,7 +12,7 @@
             --dark: #1D1C21;
             --light: #FBFBFC;
             --gray: #666;
-            --transition: all 0.3s ease;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         * {
@@ -31,6 +31,7 @@
             background-color: var(--dark);
             color: var(--light);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* Header Styles */
@@ -45,6 +46,8 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .logo {
@@ -61,6 +64,7 @@
         .logo:hover {
             transform: scale(1.05);
             cursor: pointer;
+            text-shadow: 0 0 10px rgba(19, 246, 155, 0.5);
         }
 
         .navbar {
@@ -75,6 +79,7 @@
             position: relative;
             padding: 5px 0;
             transition: var(--transition);
+            transform-style: preserve-3d;
         }
 
         .nav-item::after {
@@ -90,6 +95,7 @@
 
         .nav-item:hover {
             color: var(--primary);
+            transform: translateY(-2px);
         }
 
         .nav-item:hover::after,
@@ -99,6 +105,7 @@
 
         .nav-item.active {
             color: var(--primary);
+            font-weight: 600;
         }
 
         /* Main Content Styles */
@@ -110,16 +117,15 @@
             min-height: 100vh;
             padding: 80px 10%;
             display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
         .content-section.active-section {
             display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Home Section */
@@ -137,6 +143,7 @@
             flex: 1;
             display: flex;
             justify-content: center;
+            perspective: 1000px;
         }
 
         .myphoto {
@@ -145,33 +152,61 @@
             border-radius: 50%;
             object-fit: cover;
             border: 5px solid var(--primary);
-            box-shadow: 0 0 20px rgba(19, 246, 155, 0.3);
+            box-shadow: 0 0 30px rgba(19, 246, 155, 0.3);
             transition: var(--transition);
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateY(0deg); }
+            50% { transform: translateY(-20px) rotateY(5deg); }
         }
 
         .myphoto:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 30px rgba(19, 246, 155, 0.5);
+            transform: scale(1.05) rotateY(10deg);
+            box-shadow: 0 0 50px rgba(19, 246, 155, 0.6);
+            animation: none;
         }
 
         .home-section h1 {
             font-size: 3rem;
             margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--light), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 8s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .home-section h1 span {
-            color: var(--primary);
+            display: inline-block;
+            animation: bounce 2s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .summary {
             font-size: 1.1rem;
             margin-bottom: 40px;
             color: rgba(251, 251, 252, 0.8);
+            line-height: 1.8;
         }
 
         .buttons {
             display: flex;
             gap: 20px;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -184,13 +219,31 @@
             font-weight: 500;
             cursor: pointer;
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            transition: var(--transition);
+            z-index: -1;
         }
 
         .btn:hover {
-            background-color: var(--primary);
             color: var(--dark);
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(19, 246, 155, 0.2);
+            box-shadow: 0 10px 20px rgba(19, 246, 155, 0.3);
+        }
+
+        .btn:hover::before {
+            left: 0;
         }
 
         /* Resume Section */
@@ -199,10 +252,33 @@
             gap: 40px;
         }
 
+        .resume-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .resume-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .resume-item h2 {
             font-size: 1.8rem;
             margin-bottom: 30px;
             color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .resume-item h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: var(--primary);
         }
 
         .job {
@@ -211,11 +287,25 @@
             border-radius: 10px;
             margin-bottom: 20px;
             border-left: 3px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .job:hover {
+            transform: translateX(10px);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .job h3 {
             font-size: 1.3rem;
             margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .job h3::before {
+            content: '▹';
+            color: var(--primary);
         }
 
         .job-date {
@@ -233,6 +323,19 @@
             line-height: 1.8;
         }
 
+        .job-description li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .job-description li::before {
+            content: '•';
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+        }
+
         /* Projects Section */
         .projects-grid {
             display: grid;
@@ -244,6 +347,26 @@
             background-color: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+            position: relative;
+        }
+
+        .project-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(19, 246, 155, 0.1), transparent);
+            z-index: 0;
         }
 
         .project-card img {
@@ -251,21 +374,51 @@
             height: 200px;
             object-fit: cover;
             transition: var(--transition);
+            position: relative;
+            z-index: 1;
         }
 
         .project-card:hover img {
-            transform: scale(1.03);
+            transform: scale(1.05);
+        }
+
+        .project-card-content {
+            padding: 20px;
+            position: relative;
+            z-index: 1;
         }
 
         .project-card h3 {
-            padding: 20px;
             font-size: 1.3rem;
+            margin-bottom: 10px;
             color: var(--primary);
         }
 
         .project-card p {
-            padding: 0 20px 20px;
             color: rgba(251, 251, 252, 0.7);
+            margin-bottom: 15px;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .project-link {
+            display: inline-block;
+            padding: 6px 15px;
+            background-color: rgba(19, 246, 155, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .project-link:hover {
+            background-color: var(--primary);
+            color: var(--dark);
+            transform: translateY(-2px);
         }
 
         /* About Section */
@@ -277,6 +430,36 @@
             font-size: 1.1rem;
             margin-bottom: 30px;
             color: rgba(251, 251, 252, 0.8);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .about-content p.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .skill-tag {
+            padding: 5px 15px;
+            background-color: rgba(19, 246, 155, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .skill-tag:hover {
+            background-color: var(--primary);
+            color: var(--dark);
+            transform: translateY(-2px);
         }
 
         /* Footer */
@@ -284,6 +467,18 @@
             text-align: center;
             padding: 50px 10% 30px;
             background-color: rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
         }
 
         .footer h2 {
@@ -303,16 +498,66 @@
             color: var(--light);
             font-size: 1.8rem;
             transition: var(--transition);
+            display: inline-flex;
+            width: 50px;
+            height: 50px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
         }
 
         .social-links a:hover {
             color: var(--primary);
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.2);
+            background-color: rgba(19, 246, 155, 0.1);
         }
 
         .copyright {
             color: rgba(251, 251, 252, 0.6);
             font-size: 0.9rem;
+        }
+
+        /* Scroll Indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--primary);
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: 0 0 20px rgba(19, 246, 155, 0.5);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
         }
 
         /* Responsive Design */
@@ -329,6 +574,11 @@
             .myphoto {
                 width: 280px;
                 height: 280px;
+                margin-bottom: 30px;
+            }
+
+            .buttons {
+                justify-content: center;
             }
         }
 
@@ -341,6 +591,8 @@
             .navbar {
                 margin-top: 20px;
                 gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             
             .content-section {
@@ -354,25 +606,47 @@
             .projects-grid {
                 grid-template-columns: 1fr;
             }
+
+            .job:hover {
+                transform: none;
+            }
         }
 
         @media (max-width: 576px) {
-            .buttons {
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            
             .btn {
                 padding: 10px 20px;
+                font-size: 0.9rem;
             }
-            
+
             .section-title {
                 font-size: 2rem;
+            }
+
+            .social-links a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+
+            .back-to-top {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+                bottom: 20px;
+                right: 20px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress"></div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top">
+        <i class='bx bx-chevron-up'></i>
+    </div>
+
     <header class="header">
         <div class="logo">Arjun Singh <span>Bisht</span></div>
         <nav class="navbar">
@@ -388,7 +662,7 @@
         <section id="home" class="content-section active-section">
             <div class="home-section">
                 <div class="home-right">
-                 <img src="images/profile.jpg" class="myphoto" alt="Arjun Singh Bisht">
+                    <img src="images/profile.jpg" class="myphoto" alt="Arjun Singh Bisht">
                 </div>
                 <div class="home-left">
                     <h1>Hello I'm <br><span>Arjun Singh Bisht</span></h1>
@@ -416,20 +690,20 @@
                         <div class="job">
                             <h3>Japanese Interpreter and AWS Solutions Architect</h3>
                             <p class="job-date">2021 - Present</p>
-                            <p class="job-description">
-                                • Translated technical documents between Japanese and English<br>
-                                • Designed cloud infrastructure on AWS<br>
-                                • Managed cross-cultural team communications
-                            </p>
+                            <ul class="job-description">
+                                <li>Translated technical documents between Japanese and English</li>
+                                <li>Designed cloud infrastructure on AWS</li>
+                                <li>Managed cross-cultural team communications</li>
+                            </ul>
                         </div>
                         <div class="job">
                             <h3>Customer Service Representative</h3>
                             <p class="job-date">2019 - 2021</p>
-                            <p class="job-description">
-                                • Resolved customer queries with 98% satisfaction rate<br>
-                                • Improved response times by 30%<br>
-                                • Developed new customer service protocols
-                            </p>
+                            <ul class="job-description">
+                                <li>Resolved customer queries with 98% satisfaction rate</li>
+                                <li>Improved response times by 30%</li>
+                                <li>Developed new customer service protocols</li>
+                            </ul>
                         </div>
                     </div>
                     <div class="resume-item">
@@ -437,11 +711,30 @@
                         <div class="job">
                             <h3>Bachelor of Commerce</h3>
                             <p class="job-date">2019 - 2022</p>
-                            <p class="job-description">
-                                • Delhi University<br>
-                                • Specialization in Business Administration<br>
-                                • GPA: 7.1/10
-                            </p>
+                            <ul class="job-description">
+                                <li>Delhi University</li>
+                                <li>Specialization in Business Administration</li>
+                                <li>GPA: 7.1/10</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="resume-item">
+                        <h2>Certifications</h2>
+                        <div class="job">
+                            <h3>AWS Solutions Architect - Associate</h3>
+                            <p class="job-date">2022</p>
+                            <ul class="job-description">
+                                <li>Validated cloud architecture skills</li>
+                                <li>Focus on AWS services and best practices</li>
+                            </ul>
+                        </div>
+                        <div class="job">
+                            <h3>JLPT N1 (Japanese Language Proficiency Test)</h3>
+                            <p class="job-date">2020</p>
+                            <ul class="job-description">
+                                <li>Highest level of Japanese proficiency</li>
+                                <li>Business-level translation capabilities</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -454,19 +747,37 @@
                 <h1 class="section-title">Projects</h1>
                 <div class="projects-grid">
                     <div class="project-card">
-                        <img src="project1.jpg" alt="AWS Project">
-                        <h3>AWS Cloud Architecture</h3>
-                        <p>Designed scalable cloud infrastructure with multiple availability zones and security protocols.</p>
+                        <img src="images/project1.jpg" alt="AWS Project">
+                        <div class="project-card-content">
+                            <h3>AWS Cloud Architecture</h3>
+                            <p>Designed scalable cloud infrastructure with multiple availability zones and security protocols.</p>
+                            <div class="project-links">
+                                <a href="#" class="project-link">View Live</a>
+                                <a href="#" class="project-link">View Code</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="project-card">
-                        <img src="project2.jpg" alt="Translation System">
-                        <h3>Technical Translation System</h3>
-                        <p>Developed a workflow system for managing technical document translations.</p>
+                        <img src="images/project2.jpg" alt="Translation System">
+                        <div class="project-card-content">
+                            <h3>Technical Translation System</h3>
+                            <p>Developed a workflow system for managing technical document translations between Japanese and English.</p>
+                            <div class="project-links">
+                                <a href="#" class="project-link">View Live</a>
+                                <a href="#" class="project-link">View Code</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="project-card">
-                        <img src="project3.jpg" alt="Portfolio Website">
-                        <h3>Portfolio Website</h3>
-                        <p>Built this responsive portfolio website using HTML, CSS and JavaScript.</p>
+                        <img src="images/project3.jpg" alt="Portfolio Website">
+                        <div class="project-card-content">
+                            <h3>Portfolio Website</h3>
+                            <p>Built this responsive portfolio website using HTML, CSS and JavaScript with interactive animations.</p>
+                            <div class="project-links">
+                                <a href="#" class="project-link">View Live</a>
+                                <a href="#" class="project-link">View Code</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -480,6 +791,17 @@
                     <p>Hi, I'm Arjun Singh Bisht, originally from Delhi and now based in Japan. I combine language expertise with technical skills as a Japanese interpreter and AWS Solutions Architect.</p>
                     <p>I hold JLPT N1 certification (highest level of Japanese proficiency) and AWS Solutions Architect certification. My journey in technology has led me to explore web development, resulting in projects like this portfolio.</p>
                     <p>When I'm not working, I enjoy playing cricket, watching anime, and continuously learning new skills in technology and languages.</p>
+                    
+                    <h3 style="color: var(--primary); margin-top: 40px;">Technical Skills</h3>
+                    <div class="skills-list">
+                        <span class="skill-tag">AWS Architecture</span>
+                        <span class="skill-tag">Japanese Translation</span>
+                        <span class="skill-tag">HTML/CSS</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Cloud Computing</span>
+                        <span class="skill-tag">Technical Documentation</span>
+                        <span class="skill-tag">Cross-cultural Communication</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -520,6 +842,9 @@
                 navItems.forEach(item => {
                     item.classList.toggle('active', item.dataset.section === sectionId);
                 });
+
+                // Reset scroll position
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
             
             // Nav item click event
@@ -535,7 +860,54 @@
                     switchSection(this.dataset.section);
                 });
             });
+
+            // Scroll animations
+            function animateOnScroll() {
+                const elements = document.querySelectorAll('.resume-item, .project-card, .about-content p, .skill-tag');
+                const windowHeight = window.innerHeight;
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const animationPoint = windowHeight * 0.8;
+                    
+                    if (elementPosition < animationPoint) {
+                        element.classList.add('visible');
+                    }
+                });
+            }
+
+            // Initial animation trigger
+            animateOnScroll();
+
+            // Scroll event listener
+            window.addEventListener('scroll', animateOnScroll);
+
+            // Scroll progress indicator
+            window.addEventListener('scroll', function() {
+                const scrollTop = document.documentElement.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrollProgress = (scrollTop / scrollHeight) * 100;
+                document.querySelector('.scroll-progress').style.width = scrollProgress + '%';
+            });
+
+            // Back to top button
+            const backToTopBtn = document.querySelector('.back-to-top');
             
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
             // Initialize - show home section
             switchSection('home');
         });
