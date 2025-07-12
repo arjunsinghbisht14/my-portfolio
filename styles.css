@@ -261,6 +261,67 @@ nav ul li a:hover {
     justify-content: center;
   }
 }
-.social-links a:hover {
-  color: #your-color; /* Change hover color */
+footer {
+  background-color: #1a1a1a;
+  color: white;
+  padding: 3rem 0;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-heading {
+  color: #7fffab;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.social-icons a {
+  color: white;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.social-icons a:hover {
+  color: #7fffab;
+  transform: translateY(-3px);
+  background-color: rgba(127, 255, 171, 0.1);
+}
+
+.copyright {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 1rem;
+}
+
+/* Ensure footer stays at bottom */
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
